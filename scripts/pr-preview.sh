@@ -27,7 +27,7 @@ EOF
 
 export CONTAINER_IMAGE=aslan-spock-register.qiniu.io/goplus/goplus-community-pr:${PULL_NUMBER}-${PULL_PULL_SHA:0:8}
 docker build -t ${CONTAINER_IMAGE} -f ./Dockerfile . --builder="kube" --push
-
+export CURRENT_TIME=$(date "--iso-8601=seconds")
 
 # generate kubernetes yaml with unique flag for PR
 cat > community.yaml << EOF
@@ -35,6 +35,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: goplus-community-pr-${PULL_NUMBER}
+  labels:
+    sleepmode.kubefree.com/delete-after: "144h"
+  annotations:
+    sleepmode.kubefree.com/activity-status: '{"LastActivityTime": "${CURRENT_TIME}"}'
 spec:
   replicas: 1
   selector:
@@ -55,6 +59,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: goplus-community-pr-${PULL_NUMBER}
+  labels:
+    sleepmode.kubefree.com/delete-after: "144h"
+  annotations:
+    sleepmode.kubefree.com/activity-status: '{"LastActivityTime":"${CURRENT_TIME}"}'
 spec:
   selector:
     app: goplus-community-pr-${PULL_NUMBER}
@@ -73,7 +81,7 @@ kubectl -n goplus-pr-review get pods
 Preview_URL=http://goplus-community-pr-${PULL_NUMBER}.goplus-pr-review.svc.jfcs-qa1.local
 message=$'The PR environment is ready, please check the [PR environment]('${Preview_URL}')
 
-[Attention]: This environment will be automatically cleaned up after 6 hours, please make sure to test it in time. If you have any questions, please contact the author of the PR or the community team. 
+[Attention]: This environment will be automatically cleaned up after a certain period of time, please make sure to test it in time. If you have any questions, please contact the community team.
 '
 gh_comment -org=${REPO_OWNER} -repo=${REPO_NAME} -num=${PULL_NUMBER} -p=${Preview_URL} -b "${message}"
 
