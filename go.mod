@@ -7,7 +7,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/goplus/yap v0.8.1-0.20240319030320-50a821ef1ff0 //gop:class
 	github.com/qiniu/go-sdk/v7 v7.19.0
-	github.com/yuin/goldmark v1.7.0
+	github.com/yuin/goldmark v1.7.1
 	gocloud.dev v0.36.0
 	golang.org/x/text v0.14.0
 )
