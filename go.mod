@@ -6,7 +6,7 @@ require (
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/google/uuid v1.6.0
 	github.com/goplus/yap v0.8.1-0.20240319030320-50a821ef1ff0 //gop:class
-	github.com/qiniu/go-sdk/v7 v7.19.0
+	github.com/qiniu/go-sdk/v7 v7.20.0
 	github.com/yuin/goldmark v1.7.1
 	gocloud.dev v0.36.0
 	golang.org/x/text v0.14.0
@@ -37,6 +37,7 @@ require (
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
+	github.com/gofrs/flock v0.8.1 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
